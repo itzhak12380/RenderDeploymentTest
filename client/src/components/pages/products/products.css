@@ -1,0 +1,86 @@
+.products{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+    justify-items: center;
+    margin: 20px 0;
+}
+
+.delete-all{
+    text-align: right;
+    margin: 20px;
+}
+.delete-all input{
+    height: 25px;
+    width: 25px;
+    transform: translateY(5px) ;
+    margin: 0 15px;
+}
+.delete-all span{
+    text-transform: uppercase;
+    color: rgb(3,165,206);
+    letter-spacing: 1.3px;
+}
+.delete-all  button{
+    border: 1px solid crimson ;
+    padding: 10px 25px;
+    color: crimson;
+    text-transform: uppercase;
+}
+
+/* Filter.js css */
+
+/* filter_menu  row */
+
+.filter_menu{ 
+    width: 100%;
+    min-height: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.filter_menu select,input{
+    height: 40px;
+    padding: 0 5px;
+    outline: none;
+ 
+}
+.filter_menu input{
+    border: none;
+    border-bottom: 1px solid crimson;
+    flex: 1;
+    margin: 0 10px;
+}
+@media (max-width: 500px){
+    .filter_menu input{
+      margin: 0;
+    }
+    .filter_menu .sort{
+      flex: 1;
+    }
+    .filter_menu .sort select{
+      width: 100%;
+      min-width: 290px;
+      margin: 5px 0;
+    }
+    .delete-all{
+        margin: 20px 0;
+    }
+  }
+
+
+/*  LoadMore.js css */
+.load_more{
+    text-align: center;
+}
+.load_more button{
+    color: crimson;
+    padding: 10px 25px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc ;
+    text-transform: capitalize;
+}
