@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {API} from '../../service/api-service'
+
 function Register() {
     const [user, setuser] = useState({
         name: "",
@@ -13,7 +15,7 @@ function Register() {
     const registerSubmit = async e => {
         e.preventDefault()
         try {
-          const res =  await fetch("http://localhost:8080/user/register", { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...user }) })
+          const res =  await fetch(`${API}/user/register`, { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...user }) })
             .then(res => res.json())
             .then(responce => responce )
             .catch(error => error)

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import Login from '../../pages/auth/Login'
+import {API} from '../../service/api-service'
+
 function UserAPI() {
     const [isLogged, setisLogged] = useState(false)
     const [isAdmin, setisAdmin] = useState(false)
@@ -11,7 +12,7 @@ function UserAPI() {
             const token = localStorage.accessToken
             const getUser = async () => {
                 try {
-                    const res = await fetch("http://localhost:8080/user/info", {
+                    const res = await fetch(`${API}/user/info`, {
                         method: "get", headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${token}`
@@ -42,7 +43,7 @@ function UserAPI() {
         })
         if (check) {
             setCart([...Cart, { ...product, quantity: 1 }])
-            await fetch("http://localhost:8080/user/addcart", {
+            await fetch(`${API}/user/addcart`, {
                 method: "put", headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.accessToken}`,

@@ -5,6 +5,8 @@ import Menu from './icon/bars-solid.svg'
 import Close from './icon/times-solid.svg'
 import './header.css'
 import { globalState } from '../globalState/GlobalState';
+import {API} from '../../service/api-service'
+
 function Header() {
     const state = useContext(globalState)
     const [isLogged, setisLogged] = state.userAPI.isLogged
@@ -13,7 +15,7 @@ function Header() {
     const [menu, setMenu] = useState("")
 
     const logoutUser = async () => {
-        await fetch("http://localhost:8080/user/logout", { method: "get", headers: { "Content-Type": "application/json" } })
+        await fetch(`${API}/user/logout`, { method: "get", headers: { "Content-Type": "application/json" } })
             .then(res => res.json())
             .then(responce => responce)
             .catch(error => error)

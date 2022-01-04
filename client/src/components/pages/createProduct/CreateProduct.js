@@ -3,6 +3,7 @@ import { globalState } from '../../features/globalState/GlobalState'
 import Loading from '../../features/loading/Loading'
 import './createProduct.css'
 import { Navigate, useParams } from "react-router-dom";
+import {API} from '../../service/api-service'
 const initialState = {
     product_id: "",
     title: "",
@@ -55,7 +56,7 @@ function CreateProduct() {
             let formDate = new FormData()
             formDate.append('file', file)
             setloading(true)
-            const res = await fetch("http://localhost:8080/api/upload", {
+            const res = await fetch(`${API}/api/upload`, {
                 method: "post", headers: {
                     "Authorization": `Bearer ${localStorage.accessToken}`
                 },
@@ -73,7 +74,7 @@ function CreateProduct() {
         try {
             if (!isAdmin) return alert("You are not admin")
             setloading(true)
-            await fetch("http://localhost:8080/api/destroy", {
+            await fetch(   ` ${API}/api/destroy`, {
                 method: "post", headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.accessToken}`
@@ -100,7 +101,7 @@ function CreateProduct() {
 
             if (onEdit) {
 
-                await fetch(`http://localhost:8080/api/product/${product._id}`, {
+                await fetch(`${API}/api/product/${product._id}`, {
                     method: "put", headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${localStorage.accessToken}`
@@ -113,7 +114,7 @@ function CreateProduct() {
                 setDone(true)
             }
             else {
-                await fetch("http://localhost:8080/api/product", {
+                await fetch(`${API}/api/product`, {
                     method: "post", headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${localStorage.accessToken}`

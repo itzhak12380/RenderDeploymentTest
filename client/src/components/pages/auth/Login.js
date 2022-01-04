@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './login.css'
+import {API} from '../../service/api-service'
 function Login() {
     const [user, setuser] = useState({
         email: "",
@@ -22,7 +23,7 @@ function Login() {
         e.preventDefault()
         try {
 
-            const token = await fetch("http://localhost:8080/user/login", { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...user }) })
+            const token = await fetch(`${API}/user/login`, { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...user }) })
                 .then(res =>
                     res.json())
                 .then(responce => responce)

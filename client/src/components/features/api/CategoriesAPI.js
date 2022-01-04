@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react'
-
+import {API} from '../../service/api-service'
 function CategoriesAPI() {
     const [categories, setcategories] = useState([])
     const [callsback, setcallsback] = useState()
     useEffect( async() => {
-        const getCategories = await fetch("http://localhost:8080/api/category", {
+        const getCategories = await fetch(`${API}/api/category`, {
             method: "get", headers: {
                 "Content-Type": "application/json",
             }

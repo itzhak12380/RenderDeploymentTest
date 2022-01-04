@@ -5,6 +5,7 @@ import './products.css'
 import Loading from '../../features/loading/Loading'
 import Filters from './Filters'
 import LoadMore from './LoadMore'
+import {API} from '../../service/api-service'
 function Products() {
     const state = useContext(globalState)
     const { products, setproduct } = state.productsAPI.products
@@ -30,14 +31,14 @@ function Products() {
     const deleteProduct = async (id, public_id) => {
         try {
             setLoadingState(true)
-            const destroyImage = fetch("http://localhost:8080/api/destroy", {
+            const destroyImage = fetch(`${API}/api/destroy`, {
                 method: "post", headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.accessToken}`
                 },
                 body: JSON.stringify({ public_id })
             }).then(res => res.json()).then(responce => responce).catch(error => error)
-            const deleteProduct = fetch(`http://localhost:8080/api/product/${id}`, {
+            const deleteProduct = fetch(`${API}/api/product/${id}`, {
                 method: "delete", headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.accessToken}`
@@ -59,7 +60,7 @@ function Products() {
         setisCheck(!isCheck)
     }
     const getProduct = async () => {
-        const res = await fetch(`http://localhost:8080/api/product?limit=${page * 9}&${category}&${sort}&title[regex]=${search}`, {
+        const res = await fetch(`${API}/api/product?limit=${page * 9}&${category}&${sort}&title[regex]=${search}`, {
             method: "get", headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.accessToken}`,

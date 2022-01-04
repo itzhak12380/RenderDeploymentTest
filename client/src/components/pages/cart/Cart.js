@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import { Link } from 'react-router-dom'
 import PaypalButton from './PaypalButton'
+import {API} from '../../service/api-service'
 import './cart.css'
 function Cart() {
     const state = useContext(globalState)
@@ -19,7 +20,7 @@ function Cart() {
         getTotal()
     }, [total])
     const addToCart = async (cart) => {
-        await fetch("http://localhost:8080/user/addcart", {
+        await fetch(`${API}/user/addcart`, {
             method: "put", headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.accessToken}`,
@@ -61,7 +62,7 @@ function Cart() {
     const tranSuccess = async (payment) => {
         console.log(cart);
         const { paymentID, address } = payment
-        await fetch("http://localhost:8080/api/payment", {
+        await fetch(`${API}/api/payment`, {
             method: "post", headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.accessToken}`,

@@ -3,6 +3,7 @@ import { globalState } from '../../features/globalState/GlobalState'
 import { Link } from 'react-router-dom'
 import Login from '../auth/Login'
 import Loading from '../../features/loading/Loading'
+import {API} from '../../service/api-service'
 import "./History.css"
 function OrderHistory() {
     const state = useContext(globalState)
@@ -15,7 +16,7 @@ function OrderHistory() {
         if (token) {
             const getHistory = async () => {
                 if(isAdmin){
-                    const res = await fetch("http://localhost:8080/api/payment", {
+                    const res = await fetch(`${API}/api/payment`, {
                         method: "get", headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${localStorage.accessToken}`
@@ -25,7 +26,7 @@ function OrderHistory() {
                     sethistory(res);
                 }
                 else{
-                      const res = await fetch("http://localhost:8080/user/history", {
+                      const res = await fetch(`${API}/user/history`, {
                         method: "get", headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${localStorage.accessToken}`
