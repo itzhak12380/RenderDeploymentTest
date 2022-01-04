@@ -107,7 +107,7 @@ function CreateProduct() {
                         "Authorization": `Bearer ${localStorage.accessToken}`
                     },
                     body: JSON.stringify({ ...product, image: image })
-                }).then(res => res.json()).then(responce => console.log(responce)).catch(error => error)
+                }).then(res => res.json()).then(responce => responce).catch(error => error)
 
 
                 setproductCall(!productCall)

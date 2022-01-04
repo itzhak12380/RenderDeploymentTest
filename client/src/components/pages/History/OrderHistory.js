@@ -9,7 +9,6 @@ function OrderHistory() {
     const state = useContext(globalState)
     const [history,sethistory] = state.userAPI.history    
     const [isAdmin] = state.userAPI.isAdmin  
-    console.log(history);  
     useEffect(() => {
         const token = localStorage.accessToken
 
