@@ -92,7 +92,7 @@ function Products() {
             <div className="products">
                 {
                     products.map(products => {
-                        return <ProductItem key={products._id} product={products} isAdmin={isAdmin} deleteProduct={deleteAll} handleCheck={handleCheck} />
+                        return <ProductItem key={products._id} product={products} isAdmin={isAdmin} deleteProduct={deleteProduct} handleCheck={handleCheck} />
                     })
                 }
             </div>
