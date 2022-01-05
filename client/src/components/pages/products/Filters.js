@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext,navigator,useRef,useEffect } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import Categories from '../categories/Categories'
 
@@ -9,11 +9,31 @@ function Filters() {
     const [category, setcategory] = state.productsAPI.category
     const [sort, setSort] = state.productsAPI.sort
     const [search, setSearch] = state.productsAPI.search
-
     const handleCategory = e => {
         setcategory(e.target.value)
         setSearch("")
     }
+    function isIOS() {
+        return (
+          (/iPad|iPhone|iPod/.test(navigator.platform) ||
+            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) &&
+          !window.MSStream
+        );
+      }
+    function getIOSInputEventHandlers() {
+        if (isIOS()) {
+          return {};
+        }
+      
+        return {
+          onTouchStart: e => {
+            e.currentTarget.style.fontSize = "16px";
+          },
+          onBlur: e => {
+            e.currentTarget.style.fontSize = "";
+          }
+        };
+      }
     return (
         <div className="filter_menu">
             <div className="row">
@@ -31,7 +51,7 @@ function Filters() {
 
             <div className="row sort">
                 <span>Sort By:</span>
-                <select value={sort} onChange={e => setSort(e.target.value)}>
+                <select value={sort} onBlur={getIOSInputEventHandlers}  onChange={e => setSort(e.target.value)}>
                     <option value="">Newest</option>
                     <option value="sort=oldest">Oldest</option>
                     <option value="sort=-sold">Best sales</option>
