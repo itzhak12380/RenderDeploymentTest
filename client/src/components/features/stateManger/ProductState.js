@@ -1,4 +1,4 @@
-import{ useState, useEffect } from 'react'
+import{ useState } from 'react'
 function ProductApi() {
     const [products, setproduct] = useState([])
     const [productCall, setproductCall] = useState(false)

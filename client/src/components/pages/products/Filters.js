@@ -1,7 +1,6 @@
-import React, { useContext,navigator,useRef,useEffect } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
-import Categories from '../categories/Categories'
-
+import debounce from 'lodash.debounce'
 function Filters() {
     const state = useContext(globalState)
     const [categories, setcategories] = state.categoriesAPI.categories
@@ -13,27 +12,11 @@ function Filters() {
         setcategory(e.target.value)
         setSearch("")
     }
-    function isIOS() {
-        return (
-          (/iPad|iPhone|iPod/.test(navigator.platform) ||
-            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) &&
-          !window.MSStream
-        );
-      }
-    function getIOSInputEventHandlers() {
-        if (isIOS()) {
-          return {};
-        }
-      
-        return {
-          onTouchStart: e => {
-            e.currentTarget.style.fontSize = "16px";
-          },
-          onBlur: e => {
-            e.currentTarget.style.fontSize = "";
-          }
-        };
-      }
+    const HnadleInput = (e) => {
+        return setSearch((search) => search = e.target.value.toLocaleLowerCase())
+    }
+
+    const DebounceHnadleInput = debounce(HnadleInput, 1000)
     return (
         <div className="filter_menu">
             <div className="row">
@@ -47,17 +30,17 @@ function Filters() {
                     }
                 </select>
             </div>
-            <input type="text" value={search} placeholder="Enter your search" onChange={e => setSearch(e.target.value.toLocaleLowerCase())} />
+            <input type="text" placeholder="Enter your search" onChange={DebounceHnadleInput} />
 
             <div className="row sort">
                 <span>Sort By:</span>
-                <select value={sort} onBlur={getIOSInputEventHandlers}  onChange={e => setSort(e.target.value)}>
+                <select value={sort} onChange={e => setSort(e.target.value)}>
                     <option value="">Newest</option>
                     <option value="sort=oldest">Oldest</option>
                     <option value="sort=-sold">Best sales</option>
                     <option value="sort=-price">price: High-Low</option>
                     <option value="sort=price">price: Low-High</option>
-                
+
                 </select>
             </div>
         </div>

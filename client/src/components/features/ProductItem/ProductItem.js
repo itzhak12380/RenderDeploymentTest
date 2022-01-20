@@ -1,8 +1,9 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import './productsItem.css'
 import BtnRender from './BtnRender'
-function ProductItem({ product,isAdmin,deleteProduct,handleCheck }) {
- 
+import { globalState } from '../globalState/GlobalState'
+function ProductItem({ product,isAdmin,deleteSingleProduct,handleCheck }) {
+    const state = useContext(globalState)
     return (
         <div className="product_card">
             {
@@ -15,7 +16,7 @@ function ProductItem({ product,isAdmin,deleteProduct,handleCheck }) {
                 <p>{product.description}</p>
             </div>
             <div >
-            <BtnRender product={product} deleteProduct={()=>deleteProduct(product._id ,product.images.public_id)} />
+            <BtnRender product={product} deleteProduct={()=>deleteSingleProduct(product)} />
             </div>
         </div>
     )

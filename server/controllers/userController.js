@@ -44,7 +44,7 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "user email dosnt exist" })
         }
-        const isMatch = bcrypt.compare(password, user.password)
+        const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) {
             return res.status(400).json({ message: "password dosnt match the account" })
         }
@@ -122,4 +122,24 @@ const history = async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 }
-module.exports = { register, login, logout, getUser, refreshToken, addCart, history }
+
+const updatePassowrd = async (req, res) => {
+    try {
+        const { id } = req.body
+        bcrypt.genSalt(12, (error, salt) => {
+            if (error) throw error
+            bcrypt.hash(req.body.password, salt, async (err, hash) => {
+                if (err) throw err; 
+                 req.body.password = await hash
+                Users.findByIdAndUpdate(id, { password: req.body.password }, (error, result) => {
+                    if (error) throw error
+                    res.status(201).json({ result: result, messgae: "password has changed" })
+                })
+            })
+        })
+    } catch (error) {
+        res.send(error.message)
+    }
+
+}
+module.exports = { register, login, logout, getUser, refreshToken, addCart, history, updatePassowrd }

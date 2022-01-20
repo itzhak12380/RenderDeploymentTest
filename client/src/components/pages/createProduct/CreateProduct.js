@@ -3,7 +3,8 @@ import { globalState } from '../../features/globalState/GlobalState'
 import Loading from '../../features/loading/Loading'
 import './createProduct.css'
 import { Navigate, useParams } from "react-router-dom";
-import {API} from '../../service/api-service'
+import { updateProduct } from '../../service/productService';
+import { uploadImage, destroyImage } from '../../service/imageService';
 const initialState = {
     product_id: "",
     title: "",
@@ -24,13 +25,14 @@ function CreateProduct() {
     const [isAdmin] = state.userAPI.isAdmin
     const [Done, setDone] = useState(false)
     const [onEdit, setonEdit] = useState(false)
-    const Products = state.productsAPI.products.products
+    const products = state.productsAPI.products.products
     const params = useParams()
+
     useEffect(() => {
         if (params.id) {
             setonEdit(true)
             setloading(true)
-            Products.forEach(product => {
+            products.forEach(product => {
                 if (product._id === params.id) {
                     setproduct(product)
                     setimage(product.images)
@@ -43,7 +45,7 @@ function CreateProduct() {
             setproduct(initialState)
             setimage(false)
         }
-    }, [params.id, Products])
+    }, [params.id, products])
     const handleUpload = async (e) => {
         e.preventDefault()
 
@@ -56,15 +58,9 @@ function CreateProduct() {
             let formDate = new FormData()
             formDate.append('file', file)
             setloading(true)
-            const res = await fetch(`${API}/api/upload`, {
-                method: "post", headers: {
-                    "Authorization": `Bearer ${localStorage.accessToken}`
-                },
-                body: formDate
-            }).then(res => res.json()).then(responce => responce).catch(error => error)
+            const res = await uploadImage(formDate)
             setloading(false)
             setimage(res);
-
         } catch (error) {
             alert(error.message)
         }
@@ -74,13 +70,7 @@ function CreateProduct() {
         try {
             if (!isAdmin) return alert("You are not admin")
             setloading(true)
-            await fetch(   ` ${API}/api/destroy`, {
-                method: "post", headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.accessToken}`
-                },
-                body: JSON.stringify({ public_id: image.public_id })
-            }).then(res => res.json()).then(responce => responce).catch(error => error)
+            await destroyImage(image.public_id)
             setloading(false)
             setimage(false)
         } catch (error) {
@@ -98,35 +88,9 @@ function CreateProduct() {
         try {
             if (!isAdmin) return alert("You are not admin")
             if (!image) return alert("No image choosen")
-
-            if (onEdit) {
-
-                await fetch(`${API}/api/product/${product._id}`, {
-                    method: "put", headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.accessToken}`
-                    },
-                    body: JSON.stringify({ ...product, image: image })
-                }).then(res => res.json()).then(responce => responce).catch(error => error)
-
-
-                setproductCall(!productCall)
-                setDone(true)
-            }
-            else {
-                await fetch(`${API}/api/product`, {
-                    method: "post", headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.accessToken}`
-                    },
-                    body: JSON.stringify({ ...product, image: image })
-                }).then(res => res.json()).then(responce => responce).catch(error => error)
-
-
-                setproductCall(!productCall)
-                setDone(true)
-            }
-
+            await updateProduct(product, image, onEdit)
+            setproductCall(!productCall)
+            setDone(true)
         }
         catch (error) {
             alert(error.message)

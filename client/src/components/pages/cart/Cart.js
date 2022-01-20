@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
-import { Link } from 'react-router-dom'
 import PaypalButton from './PaypalButton'
-import {API} from '../../service/api-service'
+import { postPayment, addToCart } from '../../service/cartService'
 import './cart.css'
 function Cart() {
     const state = useContext(globalState)
     const [cart, setCart] = state.userAPI.cart
-    const  [productCall, setproductCall]  = state.productsAPI.productCall
+    const [productCall, setproductCall] = state.productsAPI.productCall
     const [total, settotal] = useState(0)
 
     const getTotal = () => {
@@ -16,18 +15,8 @@ function Cart() {
         }, 0)
         settotal(total)
     }
-    useEffect(() => {
-        getTotal()
-    }, [total])
-    const addToCart = async (cart) => {
-        await fetch(`${API}/user/addcart`, {
-            method: "put", headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.accessToken}`,
-            },
-            body: JSON.stringify(cart)
-        }).then(res => res.json()).then(responce => responce).catch(error => error)
-    }
+
+
     const increment = (id) => {
         cart.forEach(item => {
             if (item._id === id) {
@@ -38,6 +27,8 @@ function Cart() {
         addToCart(cart)
         getTotal()
     }
+
+
     const decrement = (id) => {
         cart.forEach(item => {
             if (item._id === id) {
@@ -48,6 +39,8 @@ function Cart() {
         addToCart(cart)
         getTotal()
     }
+
+
     const removeProduct = (id) => {
         if (window.confirm("do you want to delete this product?")) {
             cart.forEach((item, index) => {
@@ -59,22 +52,21 @@ function Cart() {
             addToCart(cart)
         }
     }
-    const tranSuccess = async (payment) => {
-        console.log(cart);
-        const { paymentID, address } = payment
-        await fetch(`${API}/api/payment`, {
-            method: "post", headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.accessToken}`,
-            },
-            body: JSON.stringify({ cart:cart, paymentID, address })
-        }).then(res => res.json()).then(responce => responce).catch(error => error)
+
     
+    const tranSuccess = async (payment) => {
+        const { paymentID, address } = payment
+        await postPayment(cart, paymentID, address)
         setCart([])
         addToCart([])
         alert("you have successfully placed an order.")
         setproductCall(!productCall)
     }
+
+
+    useEffect(() => {
+        getTotal()
+    }, [total])
 
     if (cart.length === 0) {
         return <h2 style={{ textAlign: 'center', fontSize: '5rem' }}>Cart empty</h2>

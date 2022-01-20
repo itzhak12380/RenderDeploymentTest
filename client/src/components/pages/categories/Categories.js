@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import './categories.css'
-import {API} from '../../service/api-service'
+import { updateCategory, newCategory, removeCategory } from '../../service/categoryService'
 function Categories() {
     const state = useContext(globalState)
     const [categories, setcategories] = state.categoriesAPI.categories
@@ -15,55 +15,30 @@ function Categories() {
 
         try {
             if (onEdit) {
-                const res = await fetch(`${API}/api/updateCategory/${id}`, {
-                    method: "put", headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.accessToken}`,
-                    },
-                    body: JSON.stringify({ name: category })
-                })
-                    .then(res => res.json())
-                    .then(responce => responce)
-                    .catch(error => error)
+                const res = await updateCategory(category, id)
                 alert(res.message);
             }
             else {
-                const res = await fetch(`${API}/api/creatCategory`, {
-                    method: "post", headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.accessToken}`,
-                    },
-                    body: JSON.stringify({ name: category })
-                })
-                    .then(res => res.json())
-                    .then(responce => responce)
-                    .catch(error => error)
+                const res = await newCategory(category)
                 alert(res.message);
             }
             setonEdit(false)
             setcategory("")
             setcallsback(!callsback)
-
         } catch (error) {
             alert(error.message)
         }
     }
+
     const editCategory = (id, name) => {
         setid(id)
         setcategory(name)
         setonEdit(true)
     }
-    const deleteCategory = async (id) =>{
+
+    const deleteCategory = async (id) => {
         try {
-            const res = await fetch(`${API}/api/deleteCategory/${id}`, {
-                method: "delete", headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.accessToken}`,
-                }
-            })
-                .then(res => res.json())
-                .then(responce => responce)
-                .catch(error => error)
+            const res = await removeCategory(id)
             alert(res.message);
             setcallsback(!callsback)
         } catch (error) {
@@ -87,7 +62,7 @@ function Categories() {
                                 <p>{category.name}</p>
                                 <div>
                                     <button onClick={() => editCategory(category._id, category.name)}>Edit</button>
-                                    <button onClick={()=> deleteCategory(category._id)}>Delete</button>
+                                    <button onClick={() => deleteCategory(category._id)}>Delete</button>
                                 </div>
                             </div>
                         )

@@ -5,7 +5,8 @@ import './products.css'
 import Loading from '../../features/loading/Loading'
 import Filters from './Filters'
 import LoadMore from './LoadMore'
-import {API} from '../../service/api-service'
+import { getProduct } from '../../service/productService'
+import { deleteProduct } from '../../service/productService'
 function Products() {
     const state = useContext(globalState)
     const { products, setproduct } = state.productsAPI.products
@@ -16,42 +17,17 @@ function Products() {
     const [result, setResult] = state.productsAPI.result
     const [isAdmin, setisAdmin] = state.userAPI.isAdmin
     const [productCall, setproductCall] = state.productsAPI.productCall
-    const [isLogged] = state.userAPI.isLogged
     const [LoadingState, setLoadingState] = useState(false)
     const [isCheck, setisCheck] = useState(false)
+
+    
     const handleCheck = (id) => {
-        console.log(id);
-        // console.log(products);
         products.forEach(product => {
             if (product._id === id) product.checked = !product.checked
         });
         setproduct([...products])
     }
 
-    const deleteProduct = async (id, public_id) => {
-        try {
-            setLoadingState(true)
-            const destroyImage = fetch(`${API}/api/destroy`, {
-                method: "post", headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.accessToken}`
-                },
-                body: JSON.stringify({ public_id })
-            }).then(res => res.json()).then(responce => responce).catch(error => error)
-            const deleteProduct = fetch(`${API}/api/product/${id}`, {
-                method: "delete", headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.accessToken}`
-                }
-            }).then(res => res.json()).then(responce => responce).catch(error => error)
-            await destroyImage
-            await deleteProduct
-            setproductCall(!productCall)
-            setLoadingState(false)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
     const checkAll = () => {
         products.forEach(product => {
             product.checked = !isCheck
@@ -59,24 +35,26 @@ function Products() {
         setproduct([...products])
         setisCheck(!isCheck)
     }
-    const getProduct = async () => {
-        const res = await fetch(`${API}/api/product?limit=${page * 9}&${category}&${sort}&title[regex]=${search}`, {
-            method: "get", headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.accessToken}`,
-            }
-        }).then(res => res.json()).then(responce => responce).catch(error => error)
-        setproduct(res.products);
-        setResult(res.result)
-    }
-
-    const deleteAll = () => {
+    const deleteAll = async () => {
+        setLoadingState(true)
         products.forEach(product => {
             if (product.checked) deleteProduct(product._id, product.images.public_id)
         })
+        setproductCall(!productCall)
+        setLoadingState(false)
+    }
+    const deleteSingleProduct = async (product) => {
+        try {
+            setLoadingState(true)
+            await deleteProduct(product._id, product.images.public_id,)
+            setproductCall(!productCall)
+            setLoadingState(false)
+        } catch (error) {
+            alert(error)
+        }
     }
     useEffect(() => {
-        getProduct()
+        getProduct(page, category, sort, search, setproduct, setResult)
     }, [productCall, category, sort, page, search])
     if (LoadingState) return <div ><Loading /></div>
     return (
@@ -92,11 +70,11 @@ function Products() {
             <div className="products">
                 {
                     products.map(products => {
-                        return <ProductItem key={products._id} product={products} isAdmin={isAdmin} deleteProduct={deleteProduct} handleCheck={handleCheck} />
+                        return <ProductItem key={products._id} product={products} isAdmin={isAdmin} deleteSingleProduct={deleteSingleProduct} setLoadingState={setLoadingState} setproductCall={setproductCall} productCall={productCall} handleCheck={handleCheck} />
                     })
                 }
             </div>
-            <LoadMore/>
+            <LoadMore />
             {products.length === 0 && <Loading />}
         </>
     )

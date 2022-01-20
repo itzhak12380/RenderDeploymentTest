@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {API} from '../../service/api-service'
-
+import { userRegister } from '../../service/userService'
 function Register() {
     const [user, setuser] = useState({
         name: "",
@@ -15,11 +14,7 @@ function Register() {
     const registerSubmit = async e => {
         e.preventDefault()
         try {
-          const res =  await fetch(`${API}/user/register`, { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...user }) })
-            .then(res => res.json())
-            .then(responce => responce )
-            .catch(error => error)
-            // console.log(res);
+            const res = await userRegister(user)
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('firstLogin', true)
             window.location.href = "/";

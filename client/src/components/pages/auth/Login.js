@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './login.css'
-import {API} from '../../service/api-service'
+import { userLogin } from '../../service/userService'
 function Login() {
     const [user, setuser] = useState({
         email: "",
@@ -12,27 +12,15 @@ function Login() {
         const { name, value } = e.target
         setuser({ ...user, [name]: value })
     }
-    const tokenExpierd = () => {
-        setTimeout(() => {
-            alert('your sign up session has expired please sign again')
-            localStorage.clear()
-            window.location.href = "/";
-        }, 15000);
-    }
     const loginSubmit = async e => {
-        e.preventDefault()
+        e.preventDefault() 
         try {
 
-            const token = await fetch(`${API}/user/login`, { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...user }) })
-                .then(res =>
-                    res.json())
-                .then(responce => responce)
-                .catch(error => error)
+            const token = await userLogin(user)
             if (token.accessToken) {
                 localStorage.setItem('accessToken', token.accessToken)
                 localStorage.setItem('firstLogin', true)
                 window.location.href = "/";
-                // tokenExpierd()
             }
             else {
                 setisFaild(true);

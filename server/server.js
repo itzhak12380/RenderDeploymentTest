@@ -1,11 +1,11 @@
 require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
-const cookieParser = require('cookie-parser')
 const fileUpload = require("express-fileupload")
 const path = require('path');
-const fs = require('fs')
 require('./DB/index')
+
+
 const app = express()
 app.use(fileUpload({ createParentPath: true,useTempFiles:true }))
 app.use(express.urlencoded({ extended: true }))
@@ -23,7 +23,7 @@ const productRouter = require('./routes/productRouter')
 const paymentRouter = require('./routes/paymentRouter')
 
 
-// user router
+// use router
 app.use('/user', userRouter)
 app.use('/api', categoryRouter)
 app.use('/api', uploadRouter)
@@ -32,12 +32,6 @@ app.use('/api', paymentRouter)
 
 
 
-// if(process.env.NODE_ENV === 'production'){
-//     app.use(express.static('client/build'))
-//     app.get("*",(req,res)=>{
-//         res.sendFile(path.join(__dirname,'client','build','index'))
-//     })
-// }
 if (process.env.NODE_ENV === 'production'){ 
     app.use(express.static(path.join(__dirname,'../client/build')))
     app.get('*',(req,res)=>{
