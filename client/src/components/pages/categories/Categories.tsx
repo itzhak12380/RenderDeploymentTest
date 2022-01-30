@@ -2,15 +2,19 @@ import React, { useState, useContext } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import './categories.css'
 import { updateCategory, newCategory, removeCategory } from '../../service/categoryService'
+import {GetErrorMessage} from '../../service/api-service'
+interface Catgorie {
+    name:string,_id:string
+}
 function Categories() {
     const state = useContext(globalState)
     const [categories, setcategories] = state.categoriesAPI.categories
     const [callsback, setcallsback] = state.categoriesAPI.callback
-    const [category, setcategory] = useState("")
-    const [onEdit, setonEdit] = useState(false)
-    const [id, setid] = useState("")
+    const [category, setcategory] = useState<string>("")
+    const [onEdit, setonEdit] = useState<Boolean>(false)
+    const [id, setid] = useState<String>("")
 
-    const createCategory = async (e) => {
+    const createCategory = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         try {
@@ -26,23 +30,23 @@ function Categories() {
             setcategory("")
             setcallsback(!callsback)
         } catch (error) {
-            alert(error.message)
+            GetErrorMessage(error)
         }
     }
 
-    const editCategory = (id, name) => {
+    const editCategory = (id:string, name:string) => {
         setid(id)
         setcategory(name)
         setonEdit(true)
     }
 
-    const deleteCategory = async (id) => {
+    const deleteCategory = async (id:string) => {
         try {
             const res = await removeCategory(id)
             alert(res.message);
             setcallsback(!callsback)
         } catch (error) {
-            alert(error.message)
+            GetErrorMessage(error)
         }
     }
     return (
@@ -56,7 +60,7 @@ function Categories() {
             </form>
             <div className="col">
                 {
-                    categories.map(category => {
+                    categories.map((category:Catgorie) => {
                         return (
                             <div className="row" key={category._id}>
                                 <p>{category.name}</p>

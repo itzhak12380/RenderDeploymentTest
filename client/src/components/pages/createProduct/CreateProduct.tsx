@@ -5,14 +5,38 @@ import './createProduct.css'
 import { Navigate, useParams } from "react-router-dom";
 import { updateProduct } from '../../service/productService';
 import { uploadImage, destroyImage } from '../../service/imageService';
-const initialState = {
+import {GetErrorMessage} from "../../service/api-service"
+
+interface HTMLInputEvent extends Event {
+    target: HTMLInputElement & EventTarget;
+}
+interface Catgorie {
+    name:string,_id:string
+}
+interface ProductInter {
+     product_id: string,
+    title: string,
+    price: number,
+    description: string,
+    content: string,
+    category: string,
+    _id: string,
+    images:{url:string,public_id:string}
+}
+const initialState:ProductInter = {
     product_id: "",
     title: "",
-    price: "120",
+    price: 120,
     description: "In general, a product is defined as a “thing produced by",
     content: "In general, a product is defined as a “thing produced by labor or effort” or the “result of an act or a process. ” The word “product” stems from the verb “produce”, from the Latin prōdūce(re) “(to) lead or bring forth. ” Since 1575, the word “product” has referred to anything produced.",
     category: "",
-    _id: ""
+    _id: "",
+    images:{url:"string",public_id:"string"}
+}
+interface IsImage{
+    isImage?:boolean,
+    public_id?:string,
+    url?:string
 }
 
 function CreateProduct() {
@@ -20,7 +44,7 @@ function CreateProduct() {
     const [product, setproduct] = useState(initialState)
     const [categories] = state.categoriesAPI.categories
     const [productCall, setproductCall] = state.productsAPI.productCall
-    const [image, setimage] = useState(false)
+    const [image, setimage] = useState<IsImage>({isImage:false,public_id:"",url:""})
     const [loading, setloading] = useState(false)
     const [isAdmin] = state.userAPI.isAdmin
     const [Done, setDone] = useState(false)
@@ -32,7 +56,7 @@ function CreateProduct() {
         if (params.id) {
             setonEdit(true)
             setloading(true)
-            products.forEach(product => {
+            products.forEach((product:ProductInter) => {
                 if (product._id === params.id) {
                     setproduct(product)
                     setimage(product.images)
@@ -43,15 +67,15 @@ function CreateProduct() {
         else {
             setonEdit(false)
             setproduct(initialState)
-            setimage(false)
+            setimage({isImage:false})
         }
     }, [params.id, products])
-    const handleUpload = async (e) => {
+    const handleUpload = async (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault()
 
         try {
             if (!isAdmin) return alert("You are not admin")
-            const file = e.target.files[0]
+            const file:any = e.currentTarget.files
             if (!file) return alert("File do's not exist")
             if (file.size > 1024 * 1024) return alert("File size is too large!")
             if (file.type !== "image/jpeg" && file.type !== "image/png") return alert("File format is incorrect.")
@@ -62,7 +86,7 @@ function CreateProduct() {
             setloading(false)
             setimage(res);
         } catch (error) {
-            alert(error.message)
+            GetErrorMessage(error)
         }
     }
 
@@ -72,18 +96,18 @@ function CreateProduct() {
             setloading(true)
             await destroyImage(image.public_id)
             setloading(false)
-            setimage(false)
+            setimage({isImage:false})
         } catch (error) {
-            alert(error.message)
+            GetErrorMessage(error)
         }
     }
 
-    const handleChangeInput = (e) => {
-        const { name, value } = e.target
+    const handleChangeInput = (e: React.FormEvent<HTMLInputElement>) => {
+        const { name, value } = e.currentTarget
         setproduct({ ...product, [name]: value })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             if (!isAdmin) return alert("You are not admin")
@@ -93,7 +117,7 @@ function CreateProduct() {
             setDone(true)
         }
         catch (error) {
-            alert(error.message)
+            GetErrorMessage(error)
         }
     }
     const styleUpload = {
@@ -129,24 +153,24 @@ function CreateProduct() {
                 </div>
                 <div className="row">
                     <label htmlFor="description">Description</label>
-                    <textarea type="text" name="description" required value={product.description} onChange={handleChangeInput} rows="5" />
+                    <input type="text" name="description" required value={product.description} onChange={handleChangeInput}  />
                 </div>
                 <div className="row">
                     <label htmlFor="content">Content</label>
-                    <textarea type="text" name="content" required value={product.content} onChange={handleChangeInput} rows="7" />
+                    <input type="text"  name="content" required value={product.content} onChange={handleChangeInput}  />
                 </div>
                 <div className="row">
                     <label htmlFor="categories">Categories :</label>
-                    <select name="category" required value={product.category} onChange={handleChangeInput}>
+                    <input type="select" name="category" required value={product.category} onChange={handleChangeInput}>
                         <option value="" >Please select a category </option>
                         {
-                            categories.map((category) => {
+                            categories.map((category:Catgorie) => {
                                 return (
                                     <option value={category._id} key={category._id} > {category.name}  </option>
                                 )
                             })
                         }
-                    </select>
+                    </input>
                 </div>
                 <button type="submit" >{onEdit ? "update" : "Create"}</button>
             </form>

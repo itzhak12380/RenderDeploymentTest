@@ -7,20 +7,17 @@ function Register() {
         email: "",
         password: ""
     })
-    const onChnageInput = (e) => {
-        const { name, value } = e.target
+    const onChnageInput = (e: React.FormEvent<HTMLInputElement>) => {
+        const { name, value } = e.currentTarget
         setuser({ ...user, [name]: value })
     }
-    const registerSubmit = async e => {
+    const registerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        try {
             const res = await userRegister(user)
             localStorage.setItem('accessToken', res.accessToken)
-            localStorage.setItem('firstLogin', true)
+            localStorage.setItem('firstLogin', "true")
             window.location.href = "/";
-        } catch (error) {
-            alert(error.responce.data.message)
-        }
+        
     }
     return (
         <div className="login-page">
@@ -30,7 +27,7 @@ function Register() {
                 <input type='text' name="name" required placeholder="name" value={user.name} onChange={onChnageInput} />
                 <input type='password' name="password" required placeholder="password" autoComplete="on" value={user.password} onChange={onChnageInput} />
                 <div className="row">
-                    <button type="submite">Register</button>
+                    <button type="submit">Register</button>
                     <Link to="/login">Login</Link>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 import React, { createContext, useEffect } from 'react'
 import ProductApi from '../stateManger/ProductState'
-import UserAPI from '../stateManger/UserState.js'
+import UserAPI from '../stateManger/UserState.tsx'
 import CategoriesAPI from '../stateManger/CategoriesState'
 export const globalState = createContext()
 
