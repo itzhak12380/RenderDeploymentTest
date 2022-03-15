@@ -8,11 +8,11 @@ interface Catgorie {
 }
 function Categories() {
     const state = useContext(globalState)
-    const [categories, setcategories] = state.categoriesAPI.categories
-    const [callsback, setcallsback] = state.categoriesAPI.callback
+    const [categories, setcategories] = state!.categoriesAPI.categories
+    const [callsback, setcallsback] = state!.categoriesAPI.callback
     const [category, setcategory] = useState<string>("")
     const [onEdit, setonEdit] = useState<Boolean>(false)
-    const [id, setid] = useState<String>("")
+    const [id, setid] = useState<string>("")
 
     const createCategory = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -56,7 +56,7 @@ function Categories() {
                 <input type="text" name="category" value={category} required
                     onChange={e => setcategory(e.target.value)} />
 
-                <button type="submit">{onEdit ? "Edit" : "Create"}</button>
+                <button className='submitButton' type="submit">{onEdit ? "Edit" : "Create"}</button>
             </form>
             <div className="col">
                 {
@@ -65,8 +65,8 @@ function Categories() {
                             <div className="row" key={category._id}>
                                 <p>{category.name}</p>
                                 <div>
-                                    <button onClick={() => editCategory(category._id, category.name)}>Edit</button>
-                                    <button onClick={() => deleteCategory(category._id)}>Delete</button>
+                                    <button className='editButton'  onClick={() => editCategory(category._id, category.name)}>Edit</button>
+                                    <button className='deleteButton' onClick={() => deleteCategory(category._id)}>Delete</button>
                                 </div>
                             </div>
                         )

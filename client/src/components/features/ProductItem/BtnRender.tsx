@@ -1,35 +1,42 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { globalState } from '../globalState/GlobalState'
-function BtnRender({ product,deleteProduct }) {
+import { IProduct } from '../../Types/products'
+
+
+interface Props {
+    product_id: string | undefined;
+    deleteProduct: () => void;
+    product: IProduct
+}
+
+const BtnRender: React.FC<Props> = ({ product_id, deleteProduct, product }) => {
     const state = useContext(globalState)
-    const [isAdmin] = state.userAPI.isAdmin
+    const { isAdmin } = state.userAPI.isAdmin
     const addCart = state.userAPI.addCart
-    
     return (
         <div className="row_btn">
             {
                 isAdmin ?
                     <>
-
-                        <Link id="btn_buy" to="#!" onClick={()=>deleteProduct()}>
+                        <Link id="btn_buy" to="#!" onClick={() => deleteProduct()}>
                             Delete
                         </Link>
-                        <Link id="btn_view" to={`/edit_product/${product._id}`}>
+                        <Link id="btn_view" to={`/edit_product/${product_id}`}>
                             Edit
                         </Link>
                     </>
                     :
                     <>
-                        <Link id="btn_buy" to="#!" onClick={()=> addCart(product)}>
+                        <Link id="btn_buy" to="#!" onClick={() => addCart(product)}>
                             Buy
                         </Link>
-                        <Link id="btn_view" to={`/detail/${product._id}`}>
+                        <Link id="btn_view" to={`/detail/${product_id}`}>
                             View
                         </Link>
                     </>
             }
-          
+
         </div>
     )
 }

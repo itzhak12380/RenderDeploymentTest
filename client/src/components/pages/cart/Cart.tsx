@@ -1,9 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import PaypalButton from './PaypalButton'
-import { postPayment, addToCart } from '../../service/cartService'
+import { PostPayment, AddToCart } from '../../service/cartService'
 import './cart.css'
-import { ProductInter, Payment } from './CartType'
+import { IProduct } from '../../Types/products'
+import { Payment } from '../../Types/cartType'
 
 
 function Cart() {
@@ -11,8 +12,7 @@ function Cart() {
     const [cart, setCart] = state.userAPI.cart
     const [productCall, setproductCall] = state.productsAPI.productCall
     const [total, settotal] = useState<number>(0)
-
-    function GetAll(cart: Array<ProductInter>) {
+    function GetAll(cart: Array<IProduct>) {
         try {
             const total = cart.reduce((prev, item) => {
                 return prev + (item.price * item.quantity)
@@ -23,7 +23,7 @@ function Cart() {
         }
 
     }
-    const increment = (id: string, cart: Array<ProductInter>) => {
+    const increment = (id: string, cart: Array<IProduct>) => {
         try {
             cart.forEach(item => {
                 if (item._id === id) {
@@ -31,7 +31,7 @@ function Cart() {
                 }
             });
             setCart([...cart])
-            addToCart(cart)
+            AddToCart(cart)
             GetAll(cart)
         } catch (error) {
             alert(error)
@@ -40,7 +40,7 @@ function Cart() {
     }
 
 
-    const decrement = (id: string, cart: Array<ProductInter>) => {
+    const decrement = (id: string, cart: Array<IProduct>) => {
         try {
             cart.forEach(item => {
                 if (item._id === id) {
@@ -48,7 +48,7 @@ function Cart() {
                 }
             });
             setCart([...cart])
-            addToCart(cart)
+            AddToCart(cart)
             GetAll(cart)
         } catch (error) {
             alert(error)
@@ -57,7 +57,7 @@ function Cart() {
     }
 
 
-    const removeProduct = (id: string, cart: Array<ProductInter>) => {
+    const removeProduct = (id: string, cart: Array<IProduct>) => {
         try {
             if (window.confirm("do you want to delete this product?")) {
                 cart.forEach((item, index) => {
@@ -66,7 +66,7 @@ function Cart() {
                     }
                 })
                 setCart([...cart])
-                addToCart(cart)
+                AddToCart(cart)
             }
 
         } catch (error) {
@@ -79,9 +79,9 @@ function Cart() {
     const tranSuccess = async (payment: Payment) => {
         try {
             const { paymentID, address } = payment
-            await postPayment(cart, paymentID, address)
+            await PostPayment(cart, paymentID, address)
             setCart([])
-            addToCart([])
+            AddToCart([])
             alert("you have successfully placed an order.")
             setproductCall(!productCall)
         } catch (error) {
@@ -101,7 +101,7 @@ function Cart() {
     return (
         <div>
             {
-                cart.map((product: ProductInter) => {
+                cart.map((product: IProduct) => {
                     return (<div className="detail" key={product._id}>
                         <img src={product.images.url}
                             alt=""

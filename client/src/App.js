@@ -4,8 +4,8 @@ import Container from './components/pages/mainPage/container';
 import {
   HashRouter as Router,
 } from 'react-router-dom'
-import { DataProvider } from './components/features/globalState/GlobalState'
-
+// import  DataProvider  from './components/features/globalState/GlobalState'
+import {DataProvider} from './components/features/globalState/GlobalState'
 function App() {
   return (
     <div >

@@ -1,19 +1,19 @@
-import React, { createContext, useEffect } from 'react'
+import { createContext } from 'react'
 import ProductApi from '../stateManger/ProductState'
-import UserAPI from '../stateManger/UserState.tsx'
+import UserAPI from '../stateManger/UserState'
 import CategoriesAPI from '../stateManger/CategoriesState'
+
 export const globalState = createContext()
 
 export const DataProvider = ({ children }) => {
 
-    const state = {
+    const STATE = {
         productsAPI: ProductApi(),
         userAPI: UserAPI(),
-        categoriesAPI:CategoriesAPI(),
+        categoriesAPI: CategoriesAPI(),
     }
-  
     return (
-        <globalState.Provider value={state}>
+        <globalState.Provider value={STATE}>
             {children}
         </globalState.Provider>
     )

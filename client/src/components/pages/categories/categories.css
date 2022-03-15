@@ -16,20 +16,63 @@
     text-transform: uppercase;
     margin-bottom: 10px;
 }
-.categories input,button{
+.categories input{
     height: 35px;
     border:none;
     outline: none;
     border-bottom: 1px solid #555;
 }
-.categories input{
-    width: 210px;
-}
-.categories button{
+.submitButton{
+    height: 35px;
+    border:none;
+    outline: none;
+    border-bottom: 1px solid #555;
     width: 70px;
     background: #555;
     color: white;
     margin-left: 10px ;
+}
+.categories input{
+    width: 210px;
+}
+/* .categories button  {
+    width: 70px;
+    background: #555;
+    color: white;
+    margin-left: 10px ;
+} */
+.deleteButton{
+    height: 35px;
+    border:none;
+    outline: none;
+    border-bottom: 1px solid #555;
+    width: 70px;
+    background: teal;
+    color: white;
+    margin-left: 10px ;
+}
+.editButton{
+     height: 35px;
+    border:none;
+    outline: none;
+    border-bottom: 1px solid #555;
+    width: 70px;
+    background: #555;
+    color: white;
+    margin-left: 10px ;
+}
+
+/* .editButton{
+    background-color: #555;
+} */
+/* .categories button #editButton{
+    background-color: #555;
+} */
+.delete{
+    /* width: 70px; */
+    background: red;
+    /* color: white;
+    margin-left: 10px ; */
 }
 
 .categories .row{

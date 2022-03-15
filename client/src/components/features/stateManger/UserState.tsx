@@ -1,22 +1,11 @@
 import { useState, useEffect } from 'react'
 import { userInfo, buyProduct } from '../../service/userService'
- interface ProductInterface {
-    product_id: string,
-    title: string,
-    price: number,
-    description?: string,
-    content: string,
-    images: {url:string ; imageurl:string},
-    category: string,
-    checked: boolean,
-    sold: number,
-    _id: string,
-    quantity: number
-}
+import { IProduct } from '../../Types/products'
+
 function UserAPI() {
     const [isLogged, setisLogged] = useState<Boolean>(false)
     const [isAdmin, setisAdmin] = useState<Boolean>(false)
-    const [Cart, setCart] = useState<Array<ProductInterface>>([])
+    const [Cart, setCart] = useState<Array<IProduct>>([])
     const [history, sethistory] = useState<Array<object>>([])
 
     useEffect(() => {
@@ -45,7 +34,7 @@ function UserAPI() {
     }, [localStorage.accessToken])
 
 
-    const addCart = async (product:ProductInterface) => {
+    const addCart = async (product: IProduct) => {
         if (!isLogged) return alert('please login to continue buying')
 
         const check = Cart.every(item => {
@@ -64,7 +53,7 @@ function UserAPI() {
         cart: [Cart, setCart],
         addCart: addCart,
         history: [history, sethistory]
-    }
+    } as const
 }
 
 export default UserAPI

@@ -7,29 +7,42 @@ import Filters from './Filters'
 import LoadMore from './LoadMore'
 import { getProduct } from '../../service/productService'
 import { deleteProduct } from '../../service/productService'
+import { IProduct } from '../../Types/products'
+
 function Products() {
     const state = useContext(globalState)
-    const { products, setproduct } = state.productsAPI.products
-    const [page, setPage] = state.productsAPI.page
-    const [category, setcategory] = state.productsAPI.category
-    const [sort, setSort] = state.productsAPI.sort
-    const [search, setSearch] = state.productsAPI.search
-    const [result, setResult] = state.productsAPI.result
-    const [isAdmin, setisAdmin] = state.userAPI.isAdmin
-    const [productCall, setproductCall] = state.productsAPI.productCall
-    const [LoadingState, setLoadingState] = useState(false)
+    const { products, setproduct } = state!.productsAPI.products
+    const [ page ] = state!.productsAPI.page
+    const [category, setcategory] = state!.productsAPI.category
+    const [sort, setSort] = state!.productsAPI.sort
+    const [search, setSearch] = state!.productsAPI.search
+    const [result, setResult] = state!.productsAPI.result
+    const [isAdmin, setisAdmin] = state!.userAPI.isAdmin
+    const [productCall, setproductCall] = state!.productsAPI.productCall
+    const [LoadingState, setLoadingState] = useState<Boolean>(false)
     const [isCheck, setisCheck] = useState(false)
+    const [cheackCount, setcheackCount] = useState(0)
 
-    
-    const handleCheck = (id) => {
-        products.forEach(product => {
-            if (product._id === id) product.checked = !product.checked
+
+    const handleCheck = (id: string | undefined) => {
+        products.forEach((product: IProduct) => {
+            if (product._id === id) {
+                product.checked = !product.checked
+                if (product.checked === false) {
+                    setcheackCount(check => check = check - 1)
+
+                }
+                else {
+                    setcheackCount(check => check = check + 1)
+
+                }
+            }
         });
         setproduct([...products])
     }
 
     const checkAll = () => {
-        products.forEach(product => {
+        products.forEach((product: IProduct) => {
             product.checked = !isCheck
         })
         setproduct([...products])
@@ -37,13 +50,13 @@ function Products() {
     }
     const deleteAll = async () => {
         setLoadingState(true)
-        products.forEach(product => {
+        products.forEach((product: IProduct) => {
             if (product.checked) deleteProduct(product._id, product.images.public_id)
         })
         setproductCall(!productCall)
         setLoadingState(false)
     }
-    const deleteSingleProduct = async (product) => {
+    const deleteSingleProduct = async (product: IProduct) => {
         try {
             setLoadingState(true)
             await deleteProduct(product._id, product.images.public_id,)
@@ -54,6 +67,7 @@ function Products() {
         }
     }
     useEffect(() => {
+
         getProduct(page, category, sort, search, setproduct, setResult)
     }, [productCall, category, sort, page, search])
     if (LoadingState) return <div ><Loading /></div>
@@ -62,15 +76,19 @@ function Products() {
             <Filters />
             {
                 isAdmin && <div className="delete-all">
-                    <span>Select all</span>
-                    <input type="checkbox" onChange={checkAll} checked={isCheck} />
+                    <span className='amount'>selected amount {cheackCount}</span>
+                    <div>
+                        <span>Select all</span>
+                        <input type="checkbox" onChange={checkAll} checked={isCheck} />
+                    </div>
+
                     <button onClick={deleteAll}>Delete All</button>
                 </div>
             }
             <div className="products">
                 {
-                    products.map(products => {
-                        return <ProductItem key={products._id} product={products} isAdmin={isAdmin} deleteSingleProduct={deleteSingleProduct} setLoadingState={setLoadingState} setproductCall={setproductCall} productCall={productCall} handleCheck={handleCheck} />
+                    products.map((products: IProduct) => {
+                        return <ProductItem key={products._id} product={products} isAdmin={isAdmin} deleteSingleProduct={deleteSingleProduct} handleCheck={handleCheck} />
                     })
                 }
             </div>
