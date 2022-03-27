@@ -17,7 +17,7 @@ function ProductApi() {
         search: [search, setSearch],
         page: [page, setPage],
         result: [result, setResult]
-    } as const
+    } 
 }
 
 export default ProductApi

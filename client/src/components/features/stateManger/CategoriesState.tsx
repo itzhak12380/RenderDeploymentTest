@@ -15,7 +15,7 @@ function CategoriesAPI() {
     return {
         categories: [categories, setcategories],
         callback: [callsback, setcallsback]
-    } as const
+    } 
 }
 
 export default CategoriesAPI

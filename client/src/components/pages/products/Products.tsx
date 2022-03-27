@@ -11,7 +11,7 @@ import { IProduct  } from '../../Types/products'
 
 function Products() {
     const state = useContext(globalState)
-    const [ products, setproduct ] = state!.productsAPI.products
+    const { products, setproduct } = state!.productsAPI.products
     const [ page ] = state!.productsAPI.page
     const [category] = state!.productsAPI.category
     const [sort] = state!.productsAPI.sort
@@ -82,7 +82,7 @@ function Products() {
             <Filters />
             {
                 isAdmin && <div className="delete-all">
-                    <span className='amount'>selected amount {cheackCount}</span>
+                    <span className='amount'> {cheackCount} product selected</span>
                     <div>
                         <span>Select all</span>
                         <input type="checkbox" onChange={checkAll} checked={isCheck} />

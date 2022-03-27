@@ -53,7 +53,7 @@ function UserAPI() {
         cart: [Cart, setCart],
         ADDCART: ADDCART,
         history: [history, sethistory]
-    } as const
+    } 
 }
 
 export default UserAPI
