@@ -4,8 +4,7 @@ import { globalState } from '../globalState/GlobalState'
 import ProductItem from '../ProductItem/ProductItem'
 import './detailProduct.css'
 import { IProduct } from '../../Types/products'
-
-const initialstate = {
+const INITIALSTATE = {
     product_id: "",
     title: "",
     price: 120,
@@ -21,9 +20,9 @@ const initialstate = {
 function DetailProduct() {
     const params = useParams()
     const state = useContext(globalState)
-    const [detailProduct, setdetailProduct] = useState<IProduct>(initialstate)
+    const [detailProduct, setdetailProduct] = useState<IProduct>(INITIALSTATE)
     const product = state.productsAPI.products.products
-    const addCart = state.userAPI.addCart
+    const ADDCART = state.userAPI.ADDCART
 
     useEffect(() => {
         if (params.id) {
@@ -49,7 +48,7 @@ function DetailProduct() {
                     <p>{detailProduct.description}</p>
                     <p>{detailProduct.content}</p>
                     <p> Sold: {detailProduct.sold}</p>
-                    <Link className="cart" to="/cart" onClick={() => addCart(detailProduct)}>
+                    <Link className="cart" to="/cart" onClick={() => ADDCART(detailProduct)}>
                         Buy Now
                     </Link>
                 </div>

@@ -12,8 +12,8 @@ interface Props {
 
 const BtnRender: React.FC<Props> = ({ product_id, deleteProduct, product }) => {
     const state = useContext(globalState)
-    const { isAdmin } = state.userAPI.isAdmin
-    const addCart = state.userAPI.addCart
+    const [ isAdmin ] = state.userAPI.isAdmin
+    const ADDCART = state.userAPI.ADDCART
     return (
         <div className="row_btn">
             {
@@ -28,7 +28,7 @@ const BtnRender: React.FC<Props> = ({ product_id, deleteProduct, product }) => {
                     </>
                     :
                     <>
-                        <Link id="btn_buy" to="#!" onClick={() => addCart(product)}>
+                        <Link id="btn_buy" to="#!" onClick={() => ADDCART(product)}>
                             Buy
                         </Link>
                         <Link id="btn_view" to={`/detail/${product_id}`}>

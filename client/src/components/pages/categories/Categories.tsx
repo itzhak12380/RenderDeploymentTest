@@ -8,7 +8,7 @@ interface Catgorie {
 }
 function Categories() {
     const state = useContext(globalState)
-    const [categories, setcategories] = state!.categoriesAPI.categories
+    const [categories] = state!.categoriesAPI.categories
     const [callsback, setcallsback] = state!.categoriesAPI.callback
     const [category, setcategory] = useState<string>("")
     const [onEdit, setonEdit] = useState<Boolean>(false)

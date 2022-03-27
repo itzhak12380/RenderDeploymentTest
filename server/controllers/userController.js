@@ -97,7 +97,7 @@ const getUser = async (req, res) => {
     }
 }
 
-const addCart = async (req, res) => {
+const ADDCART = async (req, res) => {
     try {
         const user = await Users.findById(req.user.id)
         if (!user) return res.status(400).json({ message: "user does not exist" })
@@ -142,4 +142,4 @@ const updatePassowrd = async (req, res) => {
     }
 
 }
-module.exports = { register, login, logout, getUser, refreshToken, addCart, history, updatePassowrd }
+module.exports = { register, login, logout, getUser, refreshToken, ADDCART, history, updatePassowrd }

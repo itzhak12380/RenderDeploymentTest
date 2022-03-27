@@ -17,7 +17,6 @@ function Register() {
             localStorage.setItem('accessToken', res.accessToken)
             localStorage.setItem('firstLogin', "true")
             window.location.href = "/";
-        
     }
     return (
         <div className="login-page">

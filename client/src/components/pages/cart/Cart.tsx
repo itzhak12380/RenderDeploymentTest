@@ -93,7 +93,7 @@ function Cart() {
 
     useEffect(() => {
         GetAll(cart);
-    }, [total])
+    }, [cart])
 
     if (cart.length === 0) {
         return <h2 style={{ textAlign: 'center', fontSize: '5rem' }}>Cart empty</h2>

@@ -66,7 +66,6 @@ function CreateProduct() {
 
                     if (product._id === params.id) {
                         const { price, images, title, description, content, category, _id, product_id } = product
-                        console.log(price, images, title, description, content, category);
                         setproduct({
                             ...product
                         })

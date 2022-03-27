@@ -11,7 +11,6 @@ export const getProduct = async (page: number, category: string, sort: string, s
         }).then(res => res.json()).then(responce => responce).catch(error => error)
         setproduct(res.products);
         setResult(res.result)
-        console.log(res.products);
         
     } catch (error) {
         GetErrorMessage(error)

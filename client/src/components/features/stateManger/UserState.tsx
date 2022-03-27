@@ -34,7 +34,7 @@ function UserAPI() {
     }, [localStorage.accessToken])
 
 
-    const addCart = async (product: IProduct) => {
+    const ADDCART = async (product: IProduct) => {
         if (!isLogged) return alert('please login to continue buying')
 
         const check = Cart.every(item => {
@@ -51,7 +51,7 @@ function UserAPI() {
         isLogged: [isLogged, setisLogged],
         isAdmin: [isAdmin, setisAdmin],
         cart: [Cart, setCart],
-        addCart: addCart,
+        ADDCART: ADDCART,
         history: [history, sethistory]
     } as const
 }
