@@ -11,7 +11,7 @@ import { IProduct  } from '../../Types/products'
 
 function Products() {
     const state = useContext(globalState)
-    const { products, setproduct } = state!.productsAPI.products
+    const [ products, setproduct ] = state!.productsAPI.products
     const [ page ] = state!.productsAPI.page
     const [category] = state!.productsAPI.category
     const [sort] = state!.productsAPI.sort
