@@ -6,9 +6,9 @@ function Filters() {
     const state = useContext(globalState)
     const [categories, setcategories] = state!.categoriesAPI?.categories
     const [page, setPage] = state!.productsAPI.page
-    const [category, setcategory] = state.productsAPI.category
-    const [sort, setSort] = state.productsAPI.sort
-    const [search, setSearch] = state.productsAPI.search
+    const {category, setcategory} = state!.productsAPI.category
+    const [sort, setSort] = state!.productsAPI.sort
+    const [search, setSearch] = state!.productsAPI.search
     const handleCategory = (e: React.FormEvent<HTMLSelectElement>) => {
         setcategory(e.currentTarget.value)
         setSearch("")

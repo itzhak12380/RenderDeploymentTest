@@ -21,8 +21,8 @@ function DetailProduct() {
     const params = useParams()
     const state = useContext(globalState)
     const [detailProduct, setdetailProduct] = useState<IProduct>(INITIALSTATE)
-    const product = state.productsAPI.products.products
-    const ADDCART = state.userAPI.ADDCART
+    const product = state!.productsAPI.products.products
+    const ADDCART = state!.userAPI.ADDCART
 
     useEffect(() => {
         if (params.id) {

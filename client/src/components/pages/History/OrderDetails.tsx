@@ -59,7 +59,7 @@ const initialState = {
 }
 function OrderDetails() {
     const state = useContext(globalState)
-    const [history] = state.userAPI.history
+    const [history] = state!.userAPI.history
     const [orderDetails, setorderDetails] = useState<Order>(initialState)
     const params = useParams()
     useEffect(() => {

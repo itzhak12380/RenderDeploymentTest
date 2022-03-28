@@ -7,18 +7,18 @@ import Filters from './Filters'
 import LoadMore from './LoadMore'
 import { getProduct } from '../../service/productService'
 import { deleteProduct } from '../../service/productService'
-import { IProduct  } from '../../Types/products'
+import { IProduct } from '../../Types/products'
 
 function Products() {
     const state = useContext(globalState)
     const { products, setproduct } = state!.productsAPI.products
-    const [ page ] = state!.productsAPI.page
-    const [category] = state!.productsAPI.category
+    const [page] = state!.productsAPI.page
+    const { category } = state!.productsAPI.category
     const [sort] = state!.productsAPI.sort
     const [search] = state!.productsAPI.search
     const [result, setResult] = state!.productsAPI.result
     const [isAdmin, setisAdmin] = state!.userAPI.isAdmin
-    const [productCall, setproductCall] = state!.productsAPI.productCall
+    const { productCall, setproductCall } = state!.productsAPI.productCall
     const [LoadingState, setLoadingState] = useState<Boolean>(false)
     const [isCheck, setisCheck] = useState(false)
     const [cheackCount, setcheackCount] = useState(0)
@@ -45,10 +45,10 @@ function Products() {
         products.forEach((product: IProduct) => {
             product.checked = !isCheck
         })
-        if(!isCheck) {
+        if (!isCheck) {
             setcheackCount(check => check = products.length)
         }
-        else{
+        else {
             setcheackCount(check => check = 0)
         }
         setproduct([...products])

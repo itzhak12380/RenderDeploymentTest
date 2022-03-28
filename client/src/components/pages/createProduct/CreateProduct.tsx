@@ -47,14 +47,14 @@ interface IsImage {
 function CreateProduct() {
     const state = useContext(globalState)
     const [product, setproduct] = useState<IProduct>(initialState)
-    const [categories] = state.categoriesAPI.categories
-    const [productCall, setproductCall] = state.productsAPI.productCall
+    const [categories] = state!.categoriesAPI.categories
+    const {productCall, setproductCall} = state!.productsAPI.productCall
     const [image, setimage] = useState<IsImage>({ isImage: false, public_id: "", url: "" })
     const [loading, setloading] = useState<boolean>(false)
-    const [isAdmin] = state.userAPI.isAdmin
+    const [isAdmin] = state!.userAPI.isAdmin
     const [Done, setDone] = useState(false)
     const [onEdit, setonEdit] = useState(false)
-    const products = state.productsAPI.products.products
+    const products = state!.productsAPI.products.products
     const params = useParams()
 
     useEffect(() => {

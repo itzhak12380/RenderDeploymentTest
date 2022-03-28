@@ -12,8 +12,8 @@ interface Props {
 
 const BtnRender: React.FC<Props> = ({ product_id, deleteProduct, product }) => {
     const state = useContext(globalState)
-    const [ isAdmin ] = state.userAPI.isAdmin
-    const ADDCART = state.userAPI.ADDCART
+    const [ isAdmin ] = state!.userAPI.isAdmin
+    const ADDCART = state!.userAPI.ADDCART
     return (
         <div className="row_btn">
             {

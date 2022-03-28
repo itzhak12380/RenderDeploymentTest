@@ -9,9 +9,9 @@ import { API } from '../../service/api-service'
 
 function Header() {
     const state = useContext(globalState)
-    const [isLogged, setisLogged] = state.userAPI.isLogged
-    const [isAdmin, setisAdmin] = state.userAPI.isAdmin
-    const [cart] = state.userAPI.cart
+    const [isLogged, setisLogged] = state!.userAPI.isLogged
+    const [isAdmin, setisAdmin] = state!.userAPI.isAdmin
+    const [cart] = state!.userAPI.cart
     const [menu, setMenu] = useState(false)
 
     const logoutUser = async () => {

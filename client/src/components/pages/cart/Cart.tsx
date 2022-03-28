@@ -9,8 +9,8 @@ import { Payment } from '../../Types/cartType'
 
 function Cart() {
     const state = useContext(globalState)
-    const [cart, setCart] = state.userAPI.cart
-    const [productCall, setproductCall] = state.productsAPI.productCall
+    const [cart, setCart] = state!.userAPI.cart
+    const {productCall, setproductCall} = state!.productsAPI.productCall
     const [total, settotal] = useState<number>(0)
     function GetAll(cart: Array<IProduct>) {
         try {
