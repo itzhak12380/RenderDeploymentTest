@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Link } from "react-router-dom";
-import Cart from './icon/cart.svg'
+import cart from './icon/cart.svg'
 import Menu from './icon/bars-solid.svg'
 import Close from './icon/times-solid.svg'
 import './header.css'
@@ -9,9 +9,9 @@ import { API } from '../../service/api-service'
 
 function Header() {
     const state = useContext(globalState)
-    const [isLogged, setisLogged] = state!.userAPI.isLogged
-    const [isAdmin, setisAdmin] = state!.userAPI.isAdmin
-    const [cart] = state!.userAPI.cart
+    const { isLogged, setisLogged } = state!.userAPI.isLogged
+    const { isAdmin, setisAdmin } = state!.userAPI.isAdmin
+    const { Cart } = state!.userAPI.cart
     const [menu, setMenu] = useState(false)
 
     const logoutUser = async () => {
@@ -61,9 +61,9 @@ function Header() {
             </ul>
             {
                 isAdmin ? "" : <div className="cart-icon">
-                    <span>{cart.length}</span>
+                    <span>{Cart.length}</span>
                     <Link to="/cart">
-                        <img src={Cart} alt="" width="30" />
+                        <img src={cart} alt="" width="30" />
                     </Link>
                 </div>
             }

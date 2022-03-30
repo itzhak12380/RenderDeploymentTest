@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
 import { getCategories } from '../../service/categoryService'
-interface Catgorie {
-    name: string, _id: string
-}
+import { ICategories } from '../../Types/categoriesType'
+
 function CategoriesAPI() {
-    const [categories, setcategories] = useState<Array<Catgorie>>([])
-    const [callsback, setcallsback] = useState<Boolean>(false)
+    const [categories, setcategories] = useState<Array<ICategories>>([])
+    const [callsback, setcallsback] = useState<boolean>(false)
     useEffect(() => {
         const GetAllCategories = async () => {
             setcategories(await getCategories());
@@ -13,9 +12,9 @@ function CategoriesAPI() {
         GetAllCategories()
     }, [callsback])
     return {
-        categories: [categories, setcategories],
-        callback: [callsback, setcallsback]
-    } 
+        categories: { categories, setcategories },
+        callback: { callsback, setcallsback }
+    }
 }
 
 export default CategoriesAPI

@@ -3,8 +3,8 @@ import ProductApi from '../stateManger/ProductState'
 import UserAPI from '../stateManger/UserState'
 import CategoriesAPI from '../stateManger/CategoriesState'
 import { IProduct } from '../../Types/products'
-
-
+import { Order } from '../../Types/cartType'
+import { ICategories } from '../../Types/categoriesType'
 interface IGlobalState {
 
     productsAPI: {
@@ -13,8 +13,8 @@ interface IGlobalState {
             setproduct: React.Dispatch<React.SetStateAction<IProduct[]>>;
         };
         productCall: {
-            productCall: Boolean;
-            setproductCall: React.Dispatch<React.SetStateAction<Boolean>>
+            productCall: boolean;
+            setproductCall: React.Dispatch<React.SetStateAction<boolean>>
         };
         page: {
             page: number;
@@ -38,15 +38,34 @@ interface IGlobalState {
         };
     };
     userAPI: {
-        isLogged: any,
-        isAdmin: any,
-        cart: any,
-        ADDCART: any,
-        history: any
+        isLogged: {
+            isLogged: boolean;
+            setisLogged: React.Dispatch<React.SetStateAction<boolean>>;
+        },
+        isAdmin: {
+            isAdmin: boolean;
+            setisAdmin: React.Dispatch<React.SetStateAction<boolean>>;
+        },
+        cart: {
+            Cart: IProduct[];
+            setCart: React.Dispatch<React.SetStateAction<IProduct[]>>;
+        },
+        ADDCART: Function,
+        history: {
+            history: Order[];
+            sethistory: React.Dispatch<React.SetStateAction<Order[]>>;
+        }
     };
     categoriesAPI: {
-        categories: any,
-        callback: any
+        categories:
+        {
+            categories: ICategories[];
+            setcategories: React.Dispatch<React.SetStateAction<ICategories[]>>;
+        },
+        callback: {
+            callsback: boolean;
+            setcallsback: React.Dispatch<React.SetStateAction<boolean>>;
+        }
     };
 
 }

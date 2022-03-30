@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { userInfo, buyProduct } from '../../service/userService'
 import { IProduct } from '../../Types/products'
+import { Order } from '../../Types/cartType'
 
 function UserAPI() {
-    const [isLogged, setisLogged] = useState<Boolean>(false)
-    const [isAdmin, setisAdmin] = useState<Boolean>(false)
+    const [isLogged, setisLogged] = useState<boolean>(false)
+    const [isAdmin, setisAdmin] = useState<boolean>(false)
     const [Cart, setCart] = useState<Array<IProduct>>([])
-    const [history, sethistory] = useState<Array<object>>([])
+    const [history, sethistory] = useState<Array<Order>>([])
 
     useEffect(() => {
         if (localStorage.accessToken) {
@@ -48,12 +49,12 @@ function UserAPI() {
         }
     }
     return {
-        isLogged: [isLogged, setisLogged],
-        isAdmin: [isAdmin, setisAdmin],
-        cart: [Cart, setCart],
+        isLogged: { isLogged, setisLogged },
+        isAdmin: { isAdmin, setisAdmin },
+        cart: { Cart, setCart },
         ADDCART: ADDCART,
-        history: [history, sethistory]
-    } 
+        history: { history, sethistory }
+    }
 }
 
 export default UserAPI

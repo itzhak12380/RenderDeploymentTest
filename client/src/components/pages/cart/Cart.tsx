@@ -9,8 +9,8 @@ import { Payment } from '../../Types/cartType'
 
 function Cart() {
     const state = useContext(globalState)
-    const [cart, setCart] = state!.userAPI.cart
-    const {productCall, setproductCall} = state!.productsAPI.productCall
+    const { Cart, setCart } = state!.userAPI.cart
+    const { productCall, setproductCall } = state!.productsAPI.productCall
     const [total, settotal] = useState<number>(0)
     function GetAll(cart: Array<IProduct>) {
         try {
@@ -79,7 +79,7 @@ function Cart() {
     const tranSuccess = async (payment: Payment) => {
         try {
             const { paymentID, address } = payment
-            await PostPayment(cart, paymentID, address)
+            await PostPayment(Cart, paymentID, address)
             setCart([])
             AddToCart([])
             alert("you have successfully placed an order.")
@@ -92,16 +92,16 @@ function Cart() {
 
 
     useEffect(() => {
-        GetAll(cart);
-    }, [cart])
+        GetAll(Cart);
+    }, [Cart])
 
-    if (cart.length === 0) {
+    if (Cart.length === 0) {
         return <h2 style={{ textAlign: 'center', fontSize: '5rem' }}>Cart empty</h2>
     }
     return (
         <div>
             {
-                cart.map((product: IProduct) => {
+                Cart.map((product: IProduct) => {
                     return (<div className="detail" key={product._id}>
                         <img src={product.images.url}
                             alt=""
@@ -114,11 +114,11 @@ function Cart() {
                             <p>{product.content}</p>
                         </div>
                         <div className="amount">
-                            <button onClick={() => decrement(product._id, cart)}> - </button>
+                            <button onClick={() => decrement(product._id, Cart)}> - </button>
                             <span>{product.quantity}</span>
-                            <button onClick={() => increment(product._id, cart)}> + </button>
+                            <button onClick={() => increment(product._id, Cart)}> + </button>
                         </div>
-                        <div className="delete" onClick={() => removeProduct(product._id, cart)}>
+                        <div className="delete" onClick={() => removeProduct(product._id, Cart)}>
                             X
                         </div>
                     </div>)

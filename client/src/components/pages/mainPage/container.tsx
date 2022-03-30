@@ -17,8 +17,8 @@ import Categories from '../categories/Categories'
 import CreateProduct from '../createProduct/CreateProduct'
 function Container() {
     const state = useContext(globalState)
-    const [isLogged] = state!.userAPI.isLogged
-    const [isAdmin] = state!.userAPI.isAdmin
+    const { isLogged } = state!.userAPI.isLogged
+    const { isAdmin } = state!.userAPI.isAdmin
     return (
         <div>
             <Header />

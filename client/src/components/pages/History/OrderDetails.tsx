@@ -1,66 +1,46 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { globalState } from '../../features/globalState/GlobalState'
-import { IProduct } from '../../Types/products'
-
-interface Order {
-    address: {
-        city: string | null | undefined;
-        country_code: string | null;
-        line1: string | null;
-        postal_code: string | null;
-        recipient_name: string | null;
-        state: string | null;
-    } | null | undefined;
-    cart: Array<IProduct>;
-    createdAt: string;
-    email: string;
-    name: string;
-    paymentID: string;
-    status: string;
-    updatedAt: string;
-    user_id: string;
-    __v: number;
-    _id: string;
-}
-const initialState = {
-    address: {
-        city: "string ",
-        country_code: " string ",
-        line1: "string ",
-        postal_code: "string ",
-        recipient_name: "string ",
-        state: "string ",
-    },
-    cart: [
-        {
-            product_id: "string",
-            title: "string",
-            price: 0,
-            description: "string",
-            content: "string",
-            images: { url: "string", public_id: "string" },
-            category: "string",
-            checked: false,
-            sold: 0,
-            _id: "string",
-            quantity: 0,
-        },
-    ],
-    createdAt: "string",
-    email: "string",
-    name: "string",
-    paymentID: "string",
-    status: "string",
-    updatedAt: "string",
-    user_id: "string",
-    __v: 0,
-    _id: "string",
-}
+import { Order } from '../../Types/cartType'
+import { ORDER_INITIALSTATE } from '../../Types/initialState'
+// const initialState:Order = {
+//     address: {
+//         city: "string ",
+//         country_code: " string ",
+//         line1: "string ",
+//         postal_code: "string ",
+//         recipient_name: "string ",
+//         state: "string ",
+//     },
+//     cart: [
+//         {
+//             product_id: "string",
+//             title: "string",
+//             price: 0,
+//             description: "string",
+//             content: "string",
+//             images: { url: "string", public_id: "string" },
+//             category: "string",
+//             checked: false,
+//             sold: 0,
+//             _id: "string",
+//             quantity: 0,
+//         },
+//     ],
+//     createdAt: "string",
+//     email: "string",
+//     name: "string",
+//     paymentID: "string",
+//     status: "string",
+//     updatedAt: "string",
+//     user_id: "string",
+//     __v: 0,
+//     _id: "string",
+// }
 function OrderDetails() {
     const state = useContext(globalState)
-    const [history] = state!.userAPI.history
-    const [orderDetails, setorderDetails] = useState<Order>(initialState)
+    const { history } = state!.userAPI.history
+    const [orderDetails, setorderDetails] = useState<Order>(ORDER_INITIALSTATE)
     const params = useParams()
     useEffect(() => {
         if (params.id) {

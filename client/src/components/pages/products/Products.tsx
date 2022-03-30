@@ -17,9 +17,9 @@ function Products() {
     const { sort } = state!.productsAPI.sort
     const { search } = state!.productsAPI.search
     const { setResult } = state!.productsAPI.result
-    const [isAdmin, setisAdmin] = state!.userAPI.isAdmin
+    const {isAdmin, setisAdmin} = state!.userAPI.isAdmin
     const { productCall, setproductCall } = state!.productsAPI.productCall
-    const [LoadingState, setLoadingState] = useState<Boolean>(false)
+    const [LoadingState, setLoadingState] = useState<boolean>(false)
     const [isCheck, setisCheck] = useState(false)
     const [cheackCount, setcheackCount] = useState(0)
 

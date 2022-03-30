@@ -6,38 +6,19 @@ import { Navigate, useParams } from "react-router-dom";
 import { updateProduct } from '../../service/productService';
 import { uploadImage, destroyImage } from '../../service/imageService';
 import { GetErrorMessage } from "../../service/api-service"
-import {IProduct} from '../../Types/products'
+import { IProduct, IProductImage } from '../../Types/products'
+import { ICategories } from '../../Types/categoriesType'
+import { PRODUCT_INITIALSTATE } from '../../Types/initialState'
 
-interface Catgorie {
-    name: string, _id: string
-}
-const initialState: IProduct = {
-    product_id: "",
-    title: "",
-    price: 120,
-    description: "In general, a product is defined as a “thing produced by",
-    content: "In general, a product is defined as a “thing produced by labor or effort” or the “result of an act or a process. ” The word “product” stems from the verb “produce”, from the Latin prōdūce(re) “(to) lead or bring forth. ” Since 1575, the word “product” has referred to anything produced.",
-    category: "",
-    _id: "",
-    images: { url: "string", public_id: "string" },
-    checked: false,
-    sold: 0,
-    quantity: 0,
-}
-interface IsImage {
-    isImage?: boolean,
-    public_id: string,
-    url?: string
-}
 
 function CreateProduct() {
     const state = useContext(globalState)
-    const [product, setproduct] = useState<IProduct>(initialState)
-    const [categories] = state!.categoriesAPI.categories
-    const {productCall, setproductCall} = state!.productsAPI.productCall
-    const [image, setimage] = useState<IsImage>({ isImage: false, public_id: "", url: "" })
+    const [product, setproduct] = useState<IProduct>(PRODUCT_INITIALSTATE)
+    const { categories } = state!.categoriesAPI.categories
+    const { productCall, setproductCall } = state!.productsAPI.productCall
+    const [image, setimage] = useState<IProductImage>({ isImage: false, public_id: "", url: "" })
     const [loading, setloading] = useState<boolean>(false)
-    const [isAdmin] = state!.userAPI.isAdmin
+    const { isAdmin } = state!.userAPI.isAdmin
     const [Done, setDone] = useState(false)
     const [onEdit, setonEdit] = useState(false)
     const products = state!.productsAPI.products.products
@@ -51,7 +32,6 @@ function CreateProduct() {
                 products.forEach((product: IProduct) => {
 
                     if (product._id === params.id) {
-                        const { price, images, title, description, content, category, _id, product_id } = product
                         setproduct({
                             ...product
                         })
@@ -62,8 +42,8 @@ function CreateProduct() {
             }
             else {
                 setonEdit(false)
-                setproduct(initialState)
-                setimage({ isImage: false,public_id: "" })
+                setproduct(PRODUCT_INITIALSTATE)
+                setimage({ isImage: false, public_id: "" })
             }
         } catch (error) {
             GetErrorMessage(error)
@@ -99,7 +79,7 @@ function CreateProduct() {
             setloading(true)
             await destroyImage(image.public_id)
             setloading(false)
-            setimage({ isImage: false ,public_id: "",})
+            setimage({ isImage: false, public_id: "", })
         } catch (error) {
             GetErrorMessage(error)
         }
@@ -166,7 +146,7 @@ function CreateProduct() {
                     <select name="category" required value={product.category} onChange={handleChangeInput} >
                         <option disabled value="" >Please select a category </option>
                         {
-                            categories.map((category: Catgorie) => {
+                            categories.map((category: ICategories) => {
                                 return (
                                     <option value={category._id} key={category._id} > {category.name}  </option>
                                 )

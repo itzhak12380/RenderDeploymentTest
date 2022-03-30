@@ -8,9 +8,8 @@ import { Order } from '../../Types/cartType'
 
 function OrderHistory() {
     const state = useContext(globalState)
-    const [history, sethistory] = state!.userAPI.history
-    const [isAdmin] = state!.userAPI.isAdmin
-
+    const { history, sethistory } = state!.userAPI.history
+    const { isAdmin } = state!.userAPI.isAdmin
     const ifToken = async (token: string) => {
         if (token) {
             const res = await getHistory(isAdmin)

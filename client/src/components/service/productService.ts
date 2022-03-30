@@ -1,5 +1,5 @@
 import { API, GetErrorMessage } from "./api-service"
-import {IProduct , IsImage} from '../Types/products'
+import {IProduct , IProductImage} from '../Types/products'
 
 export const getProduct = async (page: number, category: string, sort: string, search: string, setproduct: Function, setResult: Function) => {
     try {
@@ -43,7 +43,7 @@ export const deleteProduct = async (id: string | undefined, public_id: string) =
 
 
 
-export const updateProduct = async (product:IProduct,image:IsImage,onEdit:boolean)=>{
+export const updateProduct = async (product:IProduct,image:IProductImage,onEdit:boolean)=>{
     if(onEdit){
            await fetch(`${API}/api/product/${product._id}`, {
         method: "put", headers: {

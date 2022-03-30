@@ -3,7 +3,7 @@ import { IProduct } from '../../Types/products'
 
 function ProductApi() {
     const [products, setproduct] = useState<Array<IProduct>>([])
-    const [productCall, setproductCall] = useState<Boolean>(false)
+    const [productCall, setproductCall] = useState<boolean>(false)
     const [category, setcategory] = useState<string>("")
     const [sort, setSort] = useState<string>("")
     const [search, setSearch] = useState<string>("")

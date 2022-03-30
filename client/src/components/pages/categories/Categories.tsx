@@ -2,19 +2,19 @@ import React, { useState, useContext } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import './categories.css'
 import { updateCategory, newCategory, removeCategory } from '../../service/categoryService'
-import {GetErrorMessage} from '../../service/api-service'
+import { GetErrorMessage } from '../../service/api-service'
 interface Catgorie {
-    name:string,_id:string
+    name: string, _id: string
 }
 function Categories() {
     const state = useContext(globalState)
-    const [categories] = state!.categoriesAPI.categories
-    const [callsback, setcallsback] = state!.categoriesAPI.callback
+    const { categories } = state!.categoriesAPI.categories
+    const { callsback, setcallsback } = state!.categoriesAPI.callback
     const [category, setcategory] = useState<string>("")
-    const [onEdit, setonEdit] = useState<Boolean>(false)
+    const [onEdit, setonEdit] = useState<boolean>(false)
     const [id, setid] = useState<string>("")
 
-    const createCategory = async (e:React.FormEvent<HTMLFormElement>) => {
+    const createCategory = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         try {
@@ -34,13 +34,13 @@ function Categories() {
         }
     }
 
-    const editCategory = (id:string, name:string) => {
+    const editCategory = (id: string, name: string) => {
         setid(id)
         setcategory(name)
         setonEdit(true)
     }
 
-    const deleteCategory = async (id:string) => {
+    const deleteCategory = async (id: string) => {
         try {
             const res = await removeCategory(id)
             alert(res.message);
@@ -60,12 +60,12 @@ function Categories() {
             </form>
             <div className="col">
                 {
-                    categories.map((category:Catgorie) => {
+                    categories.map((category: Catgorie) => {
                         return (
                             <div className="row" key={category._id}>
                                 <p>{category.name}</p>
                                 <div>
-                                    <button className='editButton'  onClick={() => editCategory(category._id, category.name)}>Edit</button>
+                                    <button className='editButton' onClick={() => editCategory(category._id, category.name)}>Edit</button>
                                     <button className='deleteButton' onClick={() => deleteCategory(category._id)}>Delete</button>
                                 </div>
                             </div>
