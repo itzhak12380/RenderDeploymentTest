@@ -11,20 +11,6 @@ import {IProduct} from '../../Types/products'
 interface Catgorie {
     name: string, _id: string
 }
-// interface product {
-//     product_id: string,
-//     title: string,
-//     price: number,
-//     description: string,
-//     content: string,
-//     category: string,
-//     _id: string,
-//     images: { url: string, public_id: string },
-//     sold?: number,
-//     updatedAt?: string,
-//     _v?: number,
-//     createdAt?: string,
-// }
 const initialState: IProduct = {
     product_id: "",
     title: "",

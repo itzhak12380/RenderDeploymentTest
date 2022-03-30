@@ -16,14 +16,26 @@ interface IGlobalState {
             productCall: Boolean;
             setproductCall: React.Dispatch<React.SetStateAction<Boolean>>
         };
-        page: any;
-        result: any;
+        page: {
+            page: number;
+            setPage: React.Dispatch<React.SetStateAction<number>>;
+        };
+        result: {
+            result: number;
+            setResult: React.Dispatch<React.SetStateAction<number>>;
+        };
         category: {
             category: string;
             setcategory: React.Dispatch<React.SetStateAction<string>>
         };
-        search: any;
-        sort: any;
+        search: {
+            search: string;
+            setSearch: React.Dispatch<React.SetStateAction<string>>
+        };
+        sort: {
+            sort: string;
+            setSort: React.Dispatch<React.SetStateAction<string>>
+        };
     };
     userAPI: {
         isLogged: any,

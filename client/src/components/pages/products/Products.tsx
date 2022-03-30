@@ -12,11 +12,11 @@ import { IProduct } from '../../Types/products'
 function Products() {
     const state = useContext(globalState)
     const { products, setproduct } = state!.productsAPI.products
-    const [page] = state!.productsAPI.page
+    const { page } = state!.productsAPI.page
     const { category } = state!.productsAPI.category
-    const [sort] = state!.productsAPI.sort
-    const [search] = state!.productsAPI.search
-    const [result, setResult] = state!.productsAPI.result
+    const { sort } = state!.productsAPI.sort
+    const { search } = state!.productsAPI.search
+    const { setResult } = state!.productsAPI.result
     const [isAdmin, setisAdmin] = state!.userAPI.isAdmin
     const { productCall, setproductCall } = state!.productsAPI.productCall
     const [LoadingState, setLoadingState] = useState<Boolean>(false)
