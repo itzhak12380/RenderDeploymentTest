@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { IProduct } from '../../Types/products'
+import { IProduct } from '../../../Types/products'
 
 function ProductApi() {
     const [products, setproduct] = useState<Array<IProduct>>([])

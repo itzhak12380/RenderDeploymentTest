@@ -5,9 +5,9 @@ import './products.css'
 import Loading from '../../features/loading/Loading'
 import Filters from './Filters'
 import LoadMore from './LoadMore'
-import { getProduct } from '../../service/productService'
-import { deleteProduct } from '../../service/productService'
-import { IProduct } from '../../Types/products'
+import { getProduct } from '../../../service/productService'
+import { deleteProduct } from '../../../service/productService'
+import { IProduct } from '../../../Types/products'
 
 function Products() {
     const state = useContext(globalState)

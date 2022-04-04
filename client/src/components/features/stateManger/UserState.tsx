@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { userInfo, buyProduct } from '../../service/userService'
-import { IProduct } from '../../Types/products'
-import { Order } from '../../Types/cartType'
+import { userInfo, buyProduct } from '../../../service/userService'
+import { IProduct } from '../../../Types/products'
+import { Order } from '../../../Types/cartType'
 
 function UserAPI() {
     const [isLogged, setisLogged] = useState<boolean>(false)

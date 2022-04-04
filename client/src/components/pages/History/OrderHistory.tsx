@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import { Link } from 'react-router-dom'
 import Loading from '../../features/loading/Loading'
-import { getHistory } from '../../service/historyService'
-import { Order } from '../../Types/cartType'
+import { getHistory } from '../../../service/historyService'
+import { Order } from '../../../Types/cartType'
 
 function OrderHistory() {
     const state = useContext(globalState)

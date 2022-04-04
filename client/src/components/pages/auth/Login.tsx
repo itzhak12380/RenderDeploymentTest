@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './login.css'
-import { userLogin } from '../../service/userService'
+import { userLogin } from '../../../service/userService'
 
 function Login() {
     const [user, setuser] = useState({

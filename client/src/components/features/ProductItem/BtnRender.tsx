@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { globalState } from '../globalState/GlobalState'
-import { IProduct } from '../../Types/products'
+import { IProduct } from '../../../Types/products'
 
 
 interface Props {

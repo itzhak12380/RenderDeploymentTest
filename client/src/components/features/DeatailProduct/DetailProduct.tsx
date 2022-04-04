@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { globalState } from '../globalState/GlobalState'
 import ProductItem from '../ProductItem/ProductItem'
 import './detailProduct.css'
-import { IProduct } from '../../Types/products'
+import { IProduct } from '../../../Types/products'
 const INITIALSTATE = {
     product_id: "",
     title: "",

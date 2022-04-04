@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { userRegister } from '../../service/userService'
+import { userRegister } from '../../../service/userService'
 function Register() {
     const [user, setuser] = useState({
         name: "",

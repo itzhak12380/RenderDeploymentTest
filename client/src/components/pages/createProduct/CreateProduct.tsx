@@ -3,12 +3,12 @@ import { globalState } from '../../features/globalState/GlobalState'
 import Loading from '../../features/loading/Loading'
 import './createProduct.css'
 import { Navigate, useParams } from "react-router-dom";
-import { updateProduct } from '../../service/productService';
-import { uploadImage, destroyImage } from '../../service/imageService';
-import { GetErrorMessage } from "../../service/api-service"
-import { IProduct, IProductImage } from '../../Types/products'
-import { ICategories } from '../../Types/categoriesType'
-import { PRODUCT_INITIALSTATE } from '../../Types/initialState'
+import { updateProduct } from '../../../service/productService';
+import { uploadImage, destroyImage } from '../../../service/imageService';
+import { GetErrorMessage } from "../../../service/api-service"
+import { IProduct, IProductImage } from '../../../Types/products'
+import { ICategories } from '../../../Types/categoriesType'
+import { PRODUCT_INITIALSTATE } from '../../../Types/initialState'
 
 
 function CreateProduct() {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getCategories } from '../../service/categoryService'
-import { ICategories } from '../../Types/categoriesType'
+import { getCategories } from '../../../service/categoryService'
+import { ICategories } from '../../../Types/categoriesType'
 
 function CategoriesAPI() {
     const [categories, setcategories] = useState<Array<ICategories>>([])

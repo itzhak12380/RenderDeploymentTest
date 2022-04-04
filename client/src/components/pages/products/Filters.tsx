@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import debounce from 'lodash.debounce'
-import { ICategories } from '../../Types/categoriesType'
+import { ICategories } from '../../../Types/categoriesType'
 function Filters() {
     const state = useContext(globalState)
     const { categories, setcategories } = state!.categoriesAPI?.categories

@@ -2,9 +2,9 @@ import React, { createContext } from 'react'
 import ProductApi from '../stateManger/ProductState'
 import UserAPI from '../stateManger/UserState'
 import CategoriesAPI from '../stateManger/CategoriesState'
-import { IProduct } from '../../Types/products'
-import { Order } from '../../Types/cartType'
-import { ICategories } from '../../Types/categoriesType'
+import { IProduct } from '../../../Types/products'
+import { Order } from '../../../Types/cartType'
+import { ICategories } from '../../../Types/categoriesType'
 interface IGlobalState {
 
     productsAPI: {

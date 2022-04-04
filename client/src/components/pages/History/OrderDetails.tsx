@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { globalState } from '../../features/globalState/GlobalState'
-import { Order } from '../../Types/cartType'
-import { ORDER_INITIALSTATE } from '../../Types/initialState'
+import { Order } from '../../../Types/cartType'
+import { ORDER_INITIALSTATE } from '../../../Types/initialState'
 // const initialState:Order = {
 //     address: {
 //         city: "string ",

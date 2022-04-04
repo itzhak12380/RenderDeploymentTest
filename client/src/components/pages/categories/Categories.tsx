@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import './categories.css'
-import { updateCategory, newCategory, removeCategory } from '../../service/categoryService'
-import { GetErrorMessage } from '../../service/api-service'
+import { updateCategory, newCategory, removeCategory } from '../../../service/categoryService'
+import { GetErrorMessage } from '../../../service/api-service'
 interface Catgorie {
     name: string, _id: string
 }

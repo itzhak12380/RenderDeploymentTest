@@ -1,7 +1,7 @@
 import React from 'react'
 import './productsItem.css'
 import BtnRender from './BtnRender'
-import { IProduct } from '../../Types/products'
+import { IProduct } from '../../../Types/products'
 
 interface Props {
     product: IProduct;

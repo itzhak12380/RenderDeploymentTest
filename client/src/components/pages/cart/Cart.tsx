@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from 'react'
 import { globalState } from '../../features/globalState/GlobalState'
 import PaypalButton from './PaypalButton'
-import { PostPayment, AddToCart } from '../../service/cartService'
+import { PostPayment, AddToCart } from '../../../service/cartService'
 import './cart.css'
-import { IProduct } from '../../Types/products'
-import { Payment } from '../../Types/cartType'
+import { IProduct } from '../../../Types/products'
+import { Payment } from '../../../Types/cartType'
 
 
 function Cart() {
