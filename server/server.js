@@ -7,10 +7,7 @@ require('./DB/index')
 
 
 const app = express()
-app.use(cors({
-    origin: "https://ecommerce-kasie.herokuapp.com/",
-    preflightContinue: false,
-}))
+app.use(cors())
 app.use(fileUpload({ createParentPath: true, useTempFiles: true }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
