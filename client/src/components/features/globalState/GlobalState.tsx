@@ -78,6 +78,8 @@ export const DataProvider: React.FC = ({ children }) => {
         userAPI: UserAPI(),
         categoriesAPI: CategoriesAPI(),
     }
+    // isLogin
+
     return (
         <globalState.Provider value={STATE}>
             {children}
