@@ -23,7 +23,8 @@ function Products() {
     const [isCheck, setisCheck] = useState(false)
     const [cheackCount, setcheackCount] = useState(0)
 
-
+    
+    
     const handleCheck = (id: string | undefined) => {
         products.forEach((product: IProduct) => {
             if (product._id === id) {

@@ -11,7 +11,7 @@ const app = express()
 app.use(fileUpload({ createParentPath: true, useTempFiles: true }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(cors({ origin: ["https://ecommerce-kasie.herokuapp.com/", "http://localhost:8080"] }))
+app.use(cors( ["https://shy-ruby-sea-urchin-hat.cyclic.app", "http://localhost:8080"] ))
 
 
 
